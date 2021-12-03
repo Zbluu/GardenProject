@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "AbstractPlot.generated.h"
 
 // Enum of all possible locations of a plot according to another plot.
 UENUM()
@@ -23,10 +24,11 @@ class AAbstractPlot : public AActor
 	GENERATED_BODY()
 
 public:
-	AAbstractPlot();
 
 	// References of other plot next to this plot (can be NULL).
-	AAbstractPlot* NorthCultivablePlot, SouthCultivablePlot, EastCultivablePlot,
-	WestCultivablePlot;
+	AAbstractPlot* NorthCultivablePlot, * SouthCultivablePlot, * EastCultivablePlot,
+	* WestCultivablePlot;
 
+protected:
+  AAbstractPlot();
 };

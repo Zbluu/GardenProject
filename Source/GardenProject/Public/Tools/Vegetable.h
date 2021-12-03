@@ -4,6 +4,7 @@
 
 #include "Containers/UnrealString.h"
 #include "Tools/AbstractTool.h"
+#include "Vegetable.generated.h"
 
 // Enum to list all of the possible states of a vegetable.
 UENUM()
@@ -30,12 +31,13 @@ public:
 	// Used to save the current state of the plot.
 	EVegetableStates VegetableState;
 
-	// Remember the time (in seconds) when the player planted it.
-	int PlantingTime;
+	// Remember the time (in seconds) when the player planted it
+	// (-1 if not planted).
+	int PlantingTime = -1;
 
 	// Called when the vegetable needs to grow up (advancesto a new state).
-	UPROPERTY(BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 	void GrowUp();
 
-	void UseToolOn(CultivablePlot* PlotTarget) override;
+	virtual void UseToolOn(ACultivablePlot* PlotTarget) override;
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Tools/AbstractTool.h"
+#include "Hammer.generated.h"
 
 // Tool used by the player to build plots.
 UCLASS()
@@ -17,15 +18,8 @@ public:
   EPlotLocation LastSelectedNewPlotLocation;
 
   // Called each time the player look at a possible location to build a new plot.
+	UFUNCTION(BlueprintCallable)
   void SelectNewPlotLocation(const EPlotLocation& NewPlotLocation);
 
-  void UseToolOn(CultivablePlot* PlotTarget) override;
-
-private:
-  // Create a new plot according to the inputs of the player.
-  void BuildCultivablePlot(
-    CultivablePlot* PlotTarget,
-    const EPlotLocation& NewPlotLocation
-  );
-
+  virtual void UseToolOn(ACultivablePlot* PlotTarget) override;
 };

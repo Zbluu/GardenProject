@@ -4,6 +4,7 @@
 
 #include "GameFramework/Actor.h"
 #include "Plots/CultivablePlot.h"
+#include "AbstractTool.generated.h"
 
 // Usable objects used by the player in game. This is an ABSTRACT class so you
 // should not try to intanciate it. Class used to create child class for each
@@ -14,9 +15,11 @@ class AAbstractTool : public AActor
 	GENERATED_BODY()
 
 public:
-	AAbstractTool();
 
-	UPROPERTY(BlueprintCallable)
-  virtual void UseToolOn(CultivablePlot* PlotTarget);
+	UFUNCTION(BlueprintCallable)
+  virtual void UseToolOn(ACultivablePlot* PlotTarget);
+
+protected:
+	AAbstractTool();
 
 };
