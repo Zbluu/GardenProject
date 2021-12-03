@@ -48,7 +48,13 @@ void ACultivablePlot::CollectVegetable()
   this->UpdateAppearance();
 }
 
-ECultivablePlotStates ACultivablePlot::GetState()
+ECultivablePlotStates ACultivablePlot::GetState() const
 {
   return this->CultivablePlotState;
+}
+
+bool ACultivablePlot::IsDry() const
+{
+  // TOOO : change this
+  return TimeOfLastWatering > 20;
 }

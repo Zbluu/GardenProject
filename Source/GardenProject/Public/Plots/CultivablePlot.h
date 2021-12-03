@@ -47,17 +47,21 @@ public:
 	void CollectVegetable();
 
   UFUNCTION(BlueprintCallable)
-  ECultivablePlotStates GetState();
+  ECultivablePlotStates GetState() const;
+
+  UFUNCTION(BlueprintCallable)
+  bool IsDry() const;
 
 protected:
   // Used to save the current state of the plot.
   ECultivablePlotStates CultivablePlotState = ECultivablePlotStates::Normal;
 
   // Remember the last time (in seconds) that the plot was watered.
-  int TimeOfLastWatering = 0;
+  // TODO : default value equal to the limit defined in settings
+  int TimeOfLastWatering = 21;
 
   // Function overrided in BP to update the appearance of the plot when the
-  UFUNCTION(BlueprintImplementableEvent)
+  UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
   void UpdateAppearance();
 
 };
