@@ -14,15 +14,13 @@ class AWateringCan : public AAbstractTool
 public:
 	AWateringCan();
 
-	// Decide how many times we can use the WateringCan before the player needs
+	// Number of current uses remaining of the WateringCan before the player needs
 	// to refill it.
-	// TODO : change it to settings.
-	UPROPERTY(BlueprintReadOnly)
-	int NB_OF_USE = 4;
-
 	UPROPERTY(BlueprintReadOnly)
 	int NbOfUseRemaining = 0;
 
+	// Called when the player is next to a well. Refill the watering can to
+	// 100% of its capacity.
 	UFUNCTION(BlueprintCallable)
 	void Refill();
 
