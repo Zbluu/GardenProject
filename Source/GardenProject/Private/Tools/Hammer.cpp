@@ -1,6 +1,8 @@
 #include "Tools/Hammer.h"
 
-AHammer::AHammer(){}
+AHammer::AHammer()
+: AAbstractTool()
+{}
 
 void AHammer::SelectNewPlotLocation(const EPlotLocation& NewPlotLocation)
 {

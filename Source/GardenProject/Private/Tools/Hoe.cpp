@@ -1,6 +1,8 @@
 #include "Tools/Hoe.h"
 
-AHoe::AHoe(){}
+AHoe::AHoe()
+: AAbstractTool()
+{}
 
 void AHoe::UseToolOn(ACultivablePlot* PlotTarget){
 

@@ -1,6 +1,8 @@
 #include "Tools/Vegetable.h"
 
-AVegetable::AVegetable(){}
+AVegetable::AVegetable()
+: AAbstractTool()
+{}
 
 void AVegetable::GrowUp(){
   // If not already at the last state and if the vegetable is planted, we

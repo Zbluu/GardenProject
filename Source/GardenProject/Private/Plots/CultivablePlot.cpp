@@ -1,6 +1,8 @@
 #include "Plots/CultivablePlot.h"
 
-ACultivablePlot::ACultivablePlot(){}
+ACultivablePlot::ACultivablePlot()
+: AAbstractPlot()
+{}
 
 void ACultivablePlot::Water()
 {

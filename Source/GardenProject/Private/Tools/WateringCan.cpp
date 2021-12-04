@@ -1,6 +1,8 @@
 #include "Tools/WateringCan.h"
 
-AWateringCan::AWateringCan(){}
+AWateringCan::AWateringCan()
+: AAbstractTool()
+{}
 
 void AWateringCan::UseToolOn(ACultivablePlot* PlotTarget){
 
