@@ -15,9 +15,12 @@ public:
 	AWateringCan();
 
 	// Decide how many times we can use the WateringCan before the player needs
-	 // to refill it.
-	static const int NB_OF_USE = 4;
+	// to refill it.
+	// TODO : change it to settings.
+	UPROPERTY(BlueprintReadOnly)
+	int NB_OF_USE = 4;
 
+	UPROPERTY(BlueprintReadOnly)
 	int NbOfUseRemaining = 0;
 
 	UFUNCTION(BlueprintCallable)
