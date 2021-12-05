@@ -27,7 +27,6 @@ void AWateringCan::Refill()
   // Get the game settings via the game mode.
   AGardenProjectGameMode* GameMode = Cast<AGardenProjectGameMode>(
    GetWorld()->GetAuthGameMode());
-    // UGameplayStatics::GetGameMode(0));
 
   this->NbOfUseRemaining = GameMode->GameSettings->WateringCanMaxUses;
 }

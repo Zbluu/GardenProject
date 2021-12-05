@@ -1,3 +1,5 @@
 #include "Plots/AbstractPlot.h"
 
-AAbstractPlot::AAbstractPlot(){}
+AAbstractPlot::AAbstractPlot()
+: AActor() 
+{}

@@ -40,25 +40,29 @@ public:
 
 	// Called when player wants to plant a new vegetable on this plot.
   UFUNCTION(BlueprintCallable)
-  void PlantVegetable(AVegetable* NewVegetable);
+  void PlantVegetable(const FString& VegetableName);
 
 	// Called when player wants to collect the current vegetable of this plot.
   UFUNCTION(BlueprintCallable)
 	void CollectVegetable();
 
+  // Return the state of the plot.
   UFUNCTION(BlueprintCallable)
   ECultivablePlotStates GetState() const;
 
+  // Return if the plot is dry or not.
   UFUNCTION(BlueprintCallable)
   bool IsDry() const;
+
+  virtual void Tick(float DeltaSeconds) override;
+  virtual void BeginPlay() override;
 
 protected:
   // Used to save the current state of the plot.
   ECultivablePlotStates CultivablePlotState = ECultivablePlotStates::Normal;
 
   // Remember the last time (in seconds) that the plot was watered.
-  // TODO : default value equal to the limit defined in settings
-  int TimeOfLastWatering = 21;
+  float TimeOfLastWatering = -1;
 
   // Function overrided in BP to update the appearance of the plot when the
   UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
