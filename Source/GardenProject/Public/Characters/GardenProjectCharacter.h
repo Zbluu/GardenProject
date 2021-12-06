@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Items/Inventory.h"
 #include "GardenProjectCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -20,6 +21,10 @@ class AGardenProjectCharacter : public ACharacter
 	class UCameraComponent* FollowCamera;
 public:
 	AGardenProjectCharacter();
+
+	// Inventory of the player.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FInventory Inventory;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)

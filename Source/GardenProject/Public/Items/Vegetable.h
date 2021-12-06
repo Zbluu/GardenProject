@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
+#include "Save/CultivablePlotSaveStruct.h"
 #include "Vegetable.generated.h"
 
 // Enum to list all of the possible states of a vegetable.
@@ -25,6 +26,10 @@ class AVegetable : public AActor
 	GENERATED_BODY()
 
 public:
+	// Name of the vegetable type.
+	UPROPERTY(BlueprintReadOnly)
+	FString VegetableName;
+
 	AVegetable();
 
 	// Called just after the vegetable is created, used to initialize the
@@ -36,9 +41,16 @@ public:
 	// Tick function called by the plot only when it's wet.
 	void TickOnlyIfWet(float DeltaSeconds);
 
+	// Return the state of the vegetable.
+	UFUNCTION(BlueprintCallable)
+	EVegetableStates GetState() const;
+
+	// Get a savable struct.
+  static FVegetableSaveStruct GetSaveStruct(AVegetable* Vegetable);
+  // Create a vegetable actor from a savable struct.
+  static AVegetable* LoadVegetable(const FVegetableSaveStruct& SaveStruct);
+
 private:
-	// Name of the vegetable type.
-	FString VegetableName;
 
 	// Remember the time (in seconds) when the player planted it
 	// (-1 if not planted).
@@ -48,11 +60,10 @@ private:
 	UPROPERTY()
 	UStaticMeshComponent* Mesh;
 
+	// Dynamic material instance of the mesh used to change the mesh color.
 	UPROPERTY()
 	UMaterialInstanceDynamic* Material;
 
 	// Called to update the appearance of the mesh.
 	void UpdateAppearance(const EVegetableStates& NewState);
-
-	EVegetableStates GetState() const;
 };

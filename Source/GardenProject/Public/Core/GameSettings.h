@@ -12,6 +12,10 @@ USTRUCT(BlueprintType, Blueprintable)
 struct FCultivablePlotSettings{
   GENERATED_BODY()
 
+  // Reference the BP class of CultivablePlot.
+  UPROPERTY(EditAnywhere, Category=Configuration)
+  TSubclassOf<ACultivablePlot> CultivablePlotClass;
+
   // Delay (in seconds) before the plot became dry after a watering.
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int SecondsBeforeBecomingDry;
@@ -48,6 +52,10 @@ struct FVegetableTypeSettings{
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   UStaticMesh* Mesh;
 
+  // Resale price of the vegetable (per unit) resale.
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int ResalePrice;
+
   // Define each state of a vegetable life cycle.
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   TMap<EVegetableStates, FVegetableGrowStateSettings> States;
@@ -73,4 +81,7 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int WateringCanMaxUses;
 
+  // Price (in coins) of a new plot.
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int NewPlotPrice;
 };

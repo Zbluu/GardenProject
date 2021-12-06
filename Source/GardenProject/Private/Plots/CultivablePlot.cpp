@@ -1,5 +1,6 @@
 #include "Plots/CultivablePlot.h"
 #include "Core/GardenProjectGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 ACultivablePlot::ACultivablePlot()
 : AAbstractPlot()
@@ -99,12 +100,24 @@ void ACultivablePlot::PlantVegetable(const FString& VegetableName)
 
 void ACultivablePlot::CollectVegetable()
 {
+  // Destroy the vegetable actor.
+  if(IsValid(this->Vegetable))
+    this->Vegetable->Destroy();
 
   // Set the new plot state.
   this->CultivablePlotState = ECultivablePlotStates::Normal;
 
   // Delete the vegetable from this plot.
   this->Vegetable = NULL;
+
+  // Dry the plot.
+  // Get the game settings via the game mode.
+  AGardenProjectGameMode* GameMode = Cast<AGardenProjectGameMode>(
+    GetWorld()->GetAuthGameMode());
+
+  // We need to set it above the limit defined in game settings.
+  this->TimeOfLastWatering = GameMode->GameSettings->CultivablePlotSettings.
+    SecondsBeforeBecomingDry + 1;
 
   // Update the appearance of the plot.
   this->UpdateAppearance();
@@ -121,4 +134,50 @@ bool ACultivablePlot::IsDry() const
   return this->TimeOfLastWatering > Cast<AGardenProjectGameMode>(
       GetWorld()->GetAuthGameMode())->GameSettings->CultivablePlotSettings
       .SecondsBeforeBecomingDry;
+}
+
+FCultivablePlotSaveStruct ACultivablePlot::GetSaveStruct(ACultivablePlot* Plot)
+{
+  FCultivablePlotSaveStruct SaveStruct;
+  FVegetableSaveStruct VegetableSaveStruct;
+
+  // Get the vegetable save struct.
+  if(Plot->GetState() == ECultivablePlotStates::HasVegetable)
+    VegetableSaveStruct = AVegetable::GetSaveStruct(Plot->Vegetable);
+
+  SaveStruct.ActorLocation = Plot->GetActorLocation();
+  SaveStruct.TimeOfLastWatering = Plot->TimeOfLastWatering;
+  SaveStruct.CultivablePlotState = Plot->CultivablePlotState;
+  SaveStruct.Vegetable = VegetableSaveStruct;
+
+  return SaveStruct;
+}
+
+ACultivablePlot* ACultivablePlot::LoadPlot(const FCultivablePlotSaveStruct& SaveStruct){
+
+  UWorld* World = GEngine->GameViewport->GetWorld();
+
+  TSubclassOf<ACultivablePlot> ClassToSpawn = Cast<AGardenProjectGameMode>(
+    World->GetAuthGameMode())->GameSettings->CultivablePlotSettings
+    .CultivablePlotClass;
+
+  if(!ClassToSpawn)
+    UE_LOG(LogTemp, Warning, TEXT("Some warning message") );
+
+  // Spawn the actor.
+  ACultivablePlot* NewPlot = World->SpawnActor<ACultivablePlot>(
+      ClassToSpawn,
+      SaveStruct.ActorLocation,
+      FRotator());
+
+  // Fill the actor with data.
+  NewPlot->TimeOfLastWatering = SaveStruct.TimeOfLastWatering;
+  NewPlot->CultivablePlotState = SaveStruct.CultivablePlotState;
+  if(NewPlot->CultivablePlotState == ECultivablePlotStates::HasVegetable)
+    NewPlot->Vegetable = AVegetable::LoadVegetable(SaveStruct.Vegetable);
+
+  // Update the appearance to match to the new data.
+  NewPlot->UpdateAppearance();
+
+  return NewPlot;
 }

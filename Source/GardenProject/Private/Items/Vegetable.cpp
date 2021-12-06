@@ -1,5 +1,6 @@
 #include "Items/Vegetable.h"
 #include "Core/GardenProjectGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 AVegetable::AVegetable()
 : AActor()
@@ -88,4 +89,31 @@ void AVegetable::TickOnlyIfWet(float DeltaSeconds)
   // Update the appearance is the state is not the same.
   if(OldState != NewState)
     this->UpdateAppearance(NewState);
+}
+
+FVegetableSaveStruct AVegetable::GetSaveStruct(AVegetable* Vegetable)
+{
+  FVegetableSaveStruct VegetableSaveStruct;
+  VegetableSaveStruct.ActorLocation = Vegetable->GetActorLocation();
+  VegetableSaveStruct.VegetableName = Vegetable->VegetableName;
+  VegetableSaveStruct.PlantingTime = Vegetable->PlantingTime;
+
+  return VegetableSaveStruct;
+}
+
+AVegetable* AVegetable::LoadVegetable(const FVegetableSaveStruct& SaveStruct)
+{
+  // Spawn the actor.
+  AVegetable* NewVegetable = GEngine->GameViewport->GetWorld()
+    ->SpawnActor<AVegetable>(
+      AVegetable::StaticClass(),
+      SaveStruct.ActorLocation,
+      FRotator());
+
+  NewVegetable->Initialize(SaveStruct.VegetableName);
+  NewVegetable->PlantingTime = SaveStruct.PlantingTime;
+
+  NewVegetable->UpdateAppearance(NewVegetable->GetState());
+
+  return NewVegetable;
 }

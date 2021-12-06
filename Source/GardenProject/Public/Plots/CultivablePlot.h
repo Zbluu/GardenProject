@@ -7,10 +7,11 @@
 
 // We need to forward declare this class to prevent circular dependencies.
 class AVegetable;
+struct FCultivablePlotSaveStruct;
 
 // Enum to list all of the possible states of a plot.
 UENUM()
-enum ECultivablePlotStates
+enum class ECultivablePlotStates : uint8
 {
   Normal,				// Default state.
   Plowed,				// Player used a hoe on the plot.
@@ -27,7 +28,7 @@ public:
 	ACultivablePlot();
 
 	// Vegetable of the plot (can be NULL).
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
 	AVegetable* Vegetable;
 
   // Called when the player use a watering-can (not empty) on the plot.
@@ -56,6 +57,11 @@ public:
 
   virtual void Tick(float DeltaSeconds) override;
   virtual void BeginPlay() override;
+
+  // Get a savable struct.
+  static FCultivablePlotSaveStruct GetSaveStruct(ACultivablePlot* Plot);
+  // Create a plot actor from a savable struct.
+  static ACultivablePlot* LoadPlot(const FCultivablePlotSaveStruct& SaveStruct);
 
 protected:
   // Used to save the current state of the plot.
