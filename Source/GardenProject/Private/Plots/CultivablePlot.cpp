@@ -90,7 +90,7 @@ void ACultivablePlot::PlantVegetable(const FString& VegetableName)
 
   // Create and assign the new vegetable actor to this plot vegetable.
   this->Vegetable = this->GetWorld()->SpawnActor<AVegetable>(
-    VegetableLocation, FRotator());
+    VegetableLocation, FRotator(0, 0, 0));
   this->Vegetable->Initialize(VegetableName);
 
   // Set the new plot state.
@@ -155,7 +155,8 @@ FCultivablePlotSaveStruct ACultivablePlot::GetSaveStruct(ACultivablePlot* Plot)
   return SaveStruct;
 }
 
-ACultivablePlot* ACultivablePlot::LoadPlot(const FCultivablePlotSaveStruct& SaveStruct){
+ACultivablePlot* ACultivablePlot::LoadPlot(const FCultivablePlotSaveStruct& SaveStruct)
+{
 
   UWorld* World = GEngine->GameViewport->GetWorld();
 
@@ -167,7 +168,7 @@ ACultivablePlot* ACultivablePlot::LoadPlot(const FCultivablePlotSaveStruct& Save
   ACultivablePlot* NewPlot = World->SpawnActor<ACultivablePlot>(
       ClassToSpawn,
       SaveStruct.ActorLocation,
-      FRotator());
+      FRotator(0, 0, 0));
 
   // Fill the actor with data.
   NewPlot->TimeOfLastWatering = SaveStruct.TimeOfLastWatering;

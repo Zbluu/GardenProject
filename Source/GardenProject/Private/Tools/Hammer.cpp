@@ -6,7 +6,8 @@ AHammer::AHammer()
 : AAbstractTool()
 {}
 
-void AHammer::UseToolOn(ACultivablePlot* PlotTarget){
+void AHammer::UseToolOn(ACultivablePlot* PlotTarget)
+{
   // Spawn here a new actor.
   this->SpawnNewPlotAt(this->LastSelectedNewPlotLocation);
 };

@@ -6,7 +6,8 @@ AHoe::AHoe()
 : AAbstractTool()
 {}
 
-void AHoe::UseToolOn(ACultivablePlot* PlotTarget){
+void AHoe::UseToolOn(ACultivablePlot* PlotTarget)
+{
 
   const ECultivablePlotStates CurrentPlotState = PlotTarget->GetState();
 

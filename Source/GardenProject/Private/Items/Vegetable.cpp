@@ -110,7 +110,7 @@ AVegetable* AVegetable::LoadVegetable(const FVegetableSaveStruct& SaveStruct)
     ->SpawnActor<AVegetable>(
       AVegetable::StaticClass(),
       SaveStruct.ActorLocation,
-      FRotator());
+      FRotator(0, 0, 0));
 
   NewVegetable->Initialize(SaveStruct.VegetableName);
   NewVegetable->PlantingTime = SaveStruct.PlantingTime;

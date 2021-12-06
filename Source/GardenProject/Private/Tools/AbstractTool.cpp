@@ -13,7 +13,8 @@ AAbstractTool::AAbstractTool()
   this->SetRootComponent(this->Mesh);
 }
 
-void AAbstractTool::UseToolOn(ACultivablePlot* PlotTarget){}
+void AAbstractTool::UseToolOn(ACultivablePlot* PlotTarget)
+{}
 
 void AAbstractTool::EnablePhysics(const bool bEnable)
 {
