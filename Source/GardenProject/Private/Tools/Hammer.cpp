@@ -1,3 +1,5 @@
+// Copyright Alexandre Depail. All Rights Reserved.
+
 #include "Tools/Hammer.h"
 
 AHammer::AHammer()

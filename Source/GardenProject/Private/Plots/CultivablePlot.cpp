@@ -1,3 +1,5 @@
+// Copyright Alexandre Depail. All Rights Reserved.
+
 #include "Plots/CultivablePlot.h"
 #include "Core/GardenProjectGameMode.h"
 #include "Kismet/GameplayStatics.h"
@@ -160,9 +162,6 @@ ACultivablePlot* ACultivablePlot::LoadPlot(const FCultivablePlotSaveStruct& Save
   TSubclassOf<ACultivablePlot> ClassToSpawn = Cast<AGardenProjectGameMode>(
     World->GetAuthGameMode())->GameSettings->CultivablePlotSettings
     .CultivablePlotClass;
-
-  if(!ClassToSpawn)
-    UE_LOG(LogTemp, Warning, TEXT("Some warning message") );
 
   // Spawn the actor.
   ACultivablePlot* NewPlot = World->SpawnActor<ACultivablePlot>(

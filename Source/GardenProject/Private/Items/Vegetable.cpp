@@ -1,3 +1,5 @@
+// Copyright Alexandre Depail. All Rights Reserved.
+
 #include "Items/Vegetable.h"
 #include "Core/GardenProjectGameMode.h"
 #include "Kismet/GameplayStatics.h"

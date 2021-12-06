@@ -1,3 +1,5 @@
+// Copyright Alexandre Depail. All Rights Reserved.
+
 #include "Tools/WateringCan.h"
 #include "Kismet/GameplayStatics.h"
 #include "Core/GardenProjectGameMode.h"

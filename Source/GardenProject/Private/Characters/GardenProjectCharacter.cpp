@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright Alexandre Depail. All Rights Reserved.
 
 #include "Characters/GardenProjectCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
